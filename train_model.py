@@ -32,7 +32,6 @@ def create_position_dataset(data, missing_position):
     print(f"Dataset for missing position {missing_position} prepared with {X.shape[0]} samples.")
     return X, y, input_features, target_column, game_ids
 
-
 def train_position_model(X, y, input_features, target_column, game_ids):
     print(f"\nTraining for: {target_column}...")
 
@@ -107,7 +106,6 @@ def train_position_model(X, y, input_features, target_column, game_ids):
     }
     return rf_model, encoders, scaler, acc
 
-
 def run_test_phase(test_data, test_labels, model, encoders, scaler, position):
     """
     Given a single model, encoders, and scaler for a specific position,
@@ -134,7 +132,6 @@ def run_test_phase(test_data, test_labels, model, encoders, scaler, position):
     test_subset['original_index'] = original_indices
     return test_subset
 
-
 def merge_test_results(test_results, test_labels, output_filename):
     if not test_results:
         print("No predictions were made.")
@@ -149,7 +146,6 @@ def merge_test_results(test_results, test_labels, output_filename):
             if col in row and pd.notnull(row[col]):
                 return row[col]
         return None
-
     combined_test_results['predicted_player'] = combined_test_results.apply(get_predicted_player, axis=1)
 
     if 'original_index' not in test_labels.columns:
@@ -166,7 +162,6 @@ def merge_test_results(test_results, test_labels, output_filename):
     combined_test_results.to_excel(output_filename, index=False)
     print(f"Test results saved to {output_filename}.")
     return test_accuracy
-
 
 # ----- Main Script with Automatic Splits -----
 
@@ -226,10 +221,10 @@ if __name__ == '__main__':
     for split_info in splits:
         split_name = split_info["name"]
         train_start = split_info["train_start"]
-        train_end = split_info["train_end"]
-        test_data_file = split_info["test_data"]
+        train_end   = split_info["train_end"]
+        test_data_file   = split_info["test_data"]
         test_labels_file = split_info["test_labels"]
-        output_excel = split_info["output_excel"]
+        output_excel     = split_info["output_excel"]
 
         print(f"\n===== PROCESSING SPLIT: {split_name} =====")
         # Filter training data by season range
